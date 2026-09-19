@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "excelmodels",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-20",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "excelmodels-db",
+      "database_id": "662ea8f3-f3bb-4897-87cb-ff3a5cad3c9b"
+    }
+  ]
+}
