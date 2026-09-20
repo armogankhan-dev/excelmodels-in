@@ -29,7 +29,7 @@ export default {
         const { results } = await env.DB
           .prepare(`
             SELECT id, name, slug, category, description,
-                   price, preview_url, is_free, created_at
+                   price, file_url, preview_url, is_free, created_at
             FROM templates
             WHERE is_published = 1
             ORDER BY created_at DESC
