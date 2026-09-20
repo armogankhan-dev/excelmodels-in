@@ -21,43 +21,55 @@ async function loadTemplates() {
       return;
     }
 
-    container.innerHTML = data.templates.map(template => `
-      <div class="template-card">
-        <div class="template-card-body">
+    container.innerHTML = data.templates.map(template => {
 
-          <span class="template-category">
-            ${escapeHtml(template.category)}
-          </span>
+      const downloadUrl = template.file_url
+        ? new URL(template.file_url, window.location.origin).href
+        : "#";
 
-          <h3>${escapeHtml(template.name)}</h3>
+      return `
+        <div class="template-card">
+          <div class="template-card-body">
 
-          <p>${escapeHtml(template.description || "")}</p>
-
-          <div class="template-card-footer">
-
-            <span class="template-price">
-              ${Number(template.price) === 0
-                ? "FREE"
-                : "₹" + template.price}
+            <span class="template-category">
+              ${escapeHtml(template.category)}
             </span>
 
-            ${
-              Number(template.is_free) === 1
-                ? `<a class="download-btn"
-                     href="${template.file_url || '#'}">
-                     Download
-                   </a>`
-                : `<a class="download-btn"
-                     href="/template.html?slug=${encodeURIComponent(template.slug)}">
-                     View Template
-                   </a>`
-            }
+            <h3>${escapeHtml(template.name)}</h3>
+
+            <p>${escapeHtml(template.description || "")}</p>
+
+            <div class="template-card-footer">
+
+              <span class="template-price">
+                ${Number(template.price) === 0
+                  ? "FREE"
+                  : "₹" + template.price}
+              </span>
+
+              ${
+                Number(template.is_free) === 1
+                  ? `<a
+                       class="download-btn"
+                       href="${downloadUrl}"
+                       download
+                     >
+                       Download
+                     </a>`
+                  : `<a
+                       class="download-btn"
+                       href="/template.html?slug=${encodeURIComponent(template.slug)}"
+                     >
+                       View Template
+                     </a>`
+              }
+
+            </div>
 
           </div>
-
         </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
 
   } catch (error) {
     console.error("Unable to load templates:", error);
